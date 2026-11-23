@@ -16,28 +16,3 @@ Pages (không có server) không thể đọc được dữ liệu đó trong th
 Giải pháp ở đây dùng link tìm kiếm trỏ thẳng (deep link) tới từng site, nên
 giá bạn thấy luôn là giá thật, mới nhất — chỉ mất thêm một cú click.
 
-### Nếu muốn hiện giá ngay trong bảng (giai đoạn 2)
-
-Cần thêm một backend nhỏ đứng giữa để cào dữ liệu hộ, vì GitHub Pages không
-chạy được server. Có thể dùng miễn phí:
-
-- Cloudflare Workers / Workers KV
-- Vercel Serverless Functions
-- GitHub Actions chạy định kỳ (phù hợp nếu bạn chỉ cần theo dõi giá của một
-  danh sách sản phẩm cố định, không phải tìm kiếm tự do)
-
-Nếu bạn muốn, mình có thể dựng tiếp phần này ở bước sau.
-
-## Cách đưa lên GitHub Pages
-
-1. Tạo một repository mới trên GitHub (ví dụ: `tra-gia-san-pham`).
-2. Tải file `index.html` này lên repo (kéo-thả trên GitHub web, hoặc qua Git).
-3. Vào **Settings → Pages**.
-4. Ở mục **Branch**, chọn `main` (hoặc nhánh bạn vừa đẩy code lên) và thư mục
-   `/ (root)`, rồi bấm **Save**.
-5. Đợi khoảng 1 phút, GitHub sẽ cấp cho bạn một đường link dạng:
-   `https://<tên-tài-khoản>.github.io/<tên-repo>/`
-6. Mở link đó lên là dùng được ngay, trên điện thoại cũng xem được bình thường.
-
-Mỗi lần bạn sửa `index.html` và đẩy (push) lên GitHub, trang sẽ tự cập nhật
-sau khoảng 1 phút, không cần làm lại bước Pages.
