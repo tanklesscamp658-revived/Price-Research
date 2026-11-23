@@ -199,7 +199,7 @@
   </div>
 
   <div class="note">
-    <strong>Vì sao không hiện giá ngay trong bảng?</strong> Long Châu, Pharmacity và An Khang chặn truy cập dữ liệu từ các website khác (CORS) và giá hiển thị bằng JavaScript phía máy chủ của họ — nên một trang tĩnh trên GitHub Pages không thể "đọc trộm" giá theo thời gian thực. Cách trên là cách duy nhất vừa chính xác tuyệt đối, vừa chạy được mà không cần máy chủ riêng. Nếu sau này bạn muốn hiện giá thẳng trong bảng, cần thêm một dịch vụ backend nhỏ (ví dụ Cloudflare Workers) đứng giữa để lấy dữ liệu hộ — có thể làm ở giai đoạn sau.
+    <strong>Website này chưa được thiết kế để xuất sang cơ sở dữ liệu hay excel, sẽ làm và hoàn thiện trong giai đoạn sau </strong> 
   </div>
 </div>
 
@@ -229,7 +229,7 @@
       {
         name: 'Website nhà phát hành / hãng sản xuất',
         desc: 'Tìm trang chính thức của hãng công bố sản phẩm này',
-        url: 'https://www.google.com/search?q=' + q
+        url: 'https://www.google.com/search?q=nhà+sản+xuất+' + q
       }
     ];
   }
