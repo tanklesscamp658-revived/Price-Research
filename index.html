@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tra giá sản phẩm — So sánh nhanh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6FAF8;
+    --ink:#132520;
+    --ink-soft:#44584F;
+    --line:#D8E6DF;
+    --accent:#1F7A5C;
+    --accent-ink:#0E4A35;
+    --card:#FFFFFF;
+    --chip:#EAF3EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Be Vietnam Pro", system-ui, sans-serif;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:56px 20px 80px;
+  }
+  header{
+    margin-bottom:36px;
+  }
+  .kicker{
+    font-size:14px;
+    color:var(--accent-ink);
+    font-weight:600;
+    margin:0 0 10px;
+  }
+  h1{
+    font-size:clamp(28px,5vw,40px);
+    font-weight:700;
+    line-height:1.15;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .lede{
+    color:var(--ink-soft);
+    font-size:16px;
+    max-width:56ch;
+    margin:0;
+  }
+
+  form{
+    display:flex;
+    gap:10px;
+    margin:32px 0 4px;
+  }
+  input[type="text"]{
+    flex:1;
+    font-family:inherit;
+    font-size:17px;
+    padding:14px 16px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    background:var(--card);
+    color:var(--ink);
+    outline:none;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+  }
+  button{
+    font-family:inherit;
+    font-size:16px;
+    font-weight:600;
+    padding:0 22px;
+    border:none;
+    border-radius:10px;
+    background:var(--accent);
+    color:#fff;
+    cursor:pointer;
+  }
+  button:hover{background:var(--accent-ink);}
+  button:focus-visible, input:focus-visible{
+    outline:2px solid var(--accent-ink);
+    outline-offset:2px;
+  }
+
+  .hint{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0 0 28px;
+  }
+
+  #results{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .source-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .source-card:hover{
+    border-color:var(--accent);
+    transform:translateY(-1px);
+  }
+  .source-main{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    min-width:0;
+  }
+  .source-name{
+    font-weight:600;
+    font-size:16px;
+  }
+  .source-desc{
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .query-chip{
+    background:var(--chip);
+    color:var(--accent-ink);
+    font-size:13px;
+    font-weight:600;
+    padding:2px 8px;
+    border-radius:6px;
+  }
+  .go{
+    flex-shrink:0;
+    font-size:14px;
+    font-weight:600;
+    color:var(--accent-ink);
+    white-space:nowrap;
+  }
+
+  .empty{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    padding:24px 0;
+  }
+
+  .note{
+    margin-top:40px;
+    padding:16px 18px;
+    border-left:3px solid var(--accent);
+    background:var(--chip);
+    border-radius:0 10px 10px 0;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .note strong{color:var(--ink);}
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0E1512;
+      --ink:#EAF3EE;
+      --ink-soft:#9FB3AB;
+      --line:#223229;
+      --accent:#3FBF8F;
+      --accent-ink:#8FE3C0;
+      --card:#15201B;
+      --chip:#17251F;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Tra giá sản phẩm</p>
+    <h1>Gõ tên sản phẩm, tìm giá đúng nguồn.</h1>
+    <p class="lede">Công cụ này không tự lấy giá về (các nhà thuốc không cho website ngoài đọc trực tiếp dữ liệu của họ), mà tạo sẵn đường tìm kiếm chính xác tới từng nơi, để bạn xem giá thật mới nhất chỉ với một cú click.</p>
+  </header>
+
+  <form id="searchForm">
+    <input type="text" id="productInput" placeholder="Ví dụ: Panadol Extra, Enterogermina, Vitamin C 1000mg…" autocomplete="off">
+    <button type="submit">Tìm giá</button>
+  </form>
+  <p class="hint">Nhấn Enter hoặc bấm "Tìm giá" để tạo liên kết tới các nguồn bên dưới.</p>
+
+  <div id="results">
+    <p class="empty">Kết quả tìm kiếm sẽ hiện ở đây.</p>
+  </div>
+
+  <div class="note">
+    <strong>Vì sao không hiện giá ngay trong bảng?</strong> Long Châu, Pharmacity và An Khang chặn truy cập dữ liệu từ các website khác (CORS) và giá hiển thị bằng JavaScript phía máy chủ của họ — nên một trang tĩnh trên GitHub Pages không thể "đọc trộm" giá theo thời gian thực. Cách trên là cách duy nhất vừa chính xác tuyệt đối, vừa chạy được mà không cần máy chủ riêng. Nếu sau này bạn muốn hiện giá thẳng trong bảng, cần thêm một dịch vụ backend nhỏ (ví dụ Cloudflare Workers) đứng giữa để lấy dữ liệu hộ — có thể làm ở giai đoạn sau.
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('searchForm');
+  const input = document.getElementById('productInput');
+  const results = document.getElementById('results');
+
+  function buildSources(query){
+    const q = encodeURIComponent(query);
+    return [
+      {
+        name: 'Nhà thuốc Long Châu',
+        desc: 'Tìm kiếm trực tiếp trên nhathuoclongchau.com.vn',
+        url: 'https://www.google.com/search?q=' + q + '+site:nhathuoclongchau.com.vn'
+      },
+      {
+        name: 'Pharmacity',
+        desc: 'Tìm kiếm trực tiếp trên pharmacity.vn',
+        url: 'https://www.google.com/search?q=' + q + '+site:pharmacity.vn'
+      },
+      {
+        name: 'Nhà thuốc An Khang',
+        desc: 'Tìm kiếm trực tiếp trên nhathuocankhang.com',
+        url: 'https://www.google.com/search?q=' + q + '+site:nhathuocankhang.com'
+      },
+      {
+        name: 'Website nhà phát hành / hãng sản xuất',
+        desc: 'Tìm trang chính thức của hãng công bố sản phẩm này',
+        url: 'https://www.google.com/search?q=' + q + '+gi%C3%A1+ch%C3%ADnh+h%C3%A3ng'
+      }
+    ];
+  }
+
+  function render(query){
+    results.innerHTML = '';
+    if(!query.trim()){
+      results.innerHTML = '<p class="empty">Nhập tên sản phẩm để bắt đầu tìm.</p>';
+      return;
+    }
+    buildSources(query).forEach(src => {
+      const a = document.createElement('a');
+      a.href = src.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = 'source-card';
+      a.innerHTML = `
+        <div class="source-main">
+          <span class="source-name">${src.name}</span>
+          <span class="source-desc">${src.desc}</span>
+        </div>
+        <span class="go">Xem giá →</span>
+      `;
+      results.appendChild(a);
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    render(input.value);
+  });
+</script>
+</body>
+</html>
